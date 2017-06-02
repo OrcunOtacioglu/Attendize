@@ -41,6 +41,10 @@
         color: #656565;
         overflow: hidden;
     }
+
+    .ticket_download_link {
+        border-bottom: 3px solid;
+    }
 </style>
 
 <section id="order_form" class="container">
@@ -51,7 +55,7 @@
             </span>
             <h1>Thank you for your order!</h1>
             <h2>
-                Your <a href="{{route('showOrderTickets', ['order_reference' => $order->order_reference])}}?download=1">tickets</a> and a confirmation email have been sent to you.
+                Your <a title="Download Tickets" class="ticket_download_link" href="{{route('showOrderTickets', ['order_reference' => $order->order_reference])}}?download=1">tickets</a> and a confirmation email have been sent to you.
             </h2>
         </div>
     </div>
@@ -146,7 +150,7 @@
                                         @if((int)ceil($order_item->unit_price) == 0)
                                         FREE
                                         @else
-                                       {{money($order_item->unit_price, $order->event->currency->code)}}
+                                       {{money($order_item->unit_price, $order->event->currency)}}
                                         @endif
 
                                     </td>
@@ -154,7 +158,7 @@
                                         @if((int)ceil($order_item->unit_price) == 0)
                                         -
                                         @else
-                                        {{money($order_item->unit_booking_fee, $order->event->currency->code)}}
+                                        {{money($order_item->unit_booking_fee, $order->event->currency)}}
                                         @endif
 
                                     </td>
@@ -162,7 +166,7 @@
                                         @if((int)ceil($order_item->unit_price) == 0)
                                         FREE
                                         @else
-                                        {{money(($order_item->unit_price + $order_item->unit_booking_fee) * ($order_item->quantity), $order->event->currency->code)}}
+                                        {{money(($order_item->unit_price + $order_item->unit_booking_fee) * ($order_item->quantity), $order->event->currency)}}
                                         @endif
 
                                     </td>
@@ -179,7 +183,7 @@
                                     <b>Sub Total</b>
                                 </td>
                                 <td colspan="2">
-                                    {{money($order->total_amount, $order->event->currency->code)}}
+                                    {{money($order->total_amount, $order->event->currency)}}
                                 </td>
                             </tr>
                             @if($order->is_refunded || $order->is_partially_refunded)
@@ -194,7 +198,7 @@
                                         <b>Refunded Amount</b>
                                     </td>
                                     <td colspan="2">
-                                        {{money($order->amount_refunded, $order->event->currency->code)}}
+                                        {{money($order->amount_refunded, $order->event->currency)}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -208,7 +212,7 @@
                                         <b>Total</b>
                                     </td>
                                     <td colspan="2">
-                                        {{money($order->total_amount - $order->amount_refunded, $order->event->currency->code)}}
+                                        {{money($order->total_amount - $order->amount_refunded, $order->event->currency)}}
                                     </td>
                                 </tr>
                             @endif

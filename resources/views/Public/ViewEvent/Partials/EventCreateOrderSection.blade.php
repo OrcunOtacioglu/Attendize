@@ -23,7 +23,7 @@
                                 @if((int)ceil($ticket['full_price']) === 0)
                                 FREE
                                 @else
-                                {{ money($ticket['full_price'], $event->currency->code) }}
+                                {{ money($ticket['full_price'], $event->currency) }}
                                 @endif
                             </td>
                         </tr>
@@ -33,7 +33,7 @@
                 @if($order_total > 0)
                 <div class="panel-footer">
                     <h5>
-                        Total: <span style="float: right;"><b>{{ money($order_total + $total_booking_fee,$event->currency->code) }}</b></span>
+                        Total: <span style="float: right;"><b>{{ money($order_total + $total_booking_fee,$event->currency) }}</b></span>
                     </h5>
                 </div>
                 @endif
@@ -166,14 +166,14 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     {!! Form::label('card-number', 'Card Number') !!}
-                                    <input required="required" name="card-number" type="text" autocomplete="off" placeholder="**** **** **** ****" class="form-control card-number" size="20" data-stripe="number">
+                                    <input required="required" type="text" autocomplete="off" placeholder="**** **** **** ****" class="form-control card-number" size="20" data-stripe="number">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-xs-6">
                                 <div class="form-group">
-                                    {!! Form::label('card-expiry-month', 'Exipry Month') !!}
+                                    {!! Form::label('card-expiry-month', 'Expiry Month') !!}
                                     {!!  Form::selectRange('card-expiry-month',1,12,null, [
                                             'class' => 'form-control card-expiry-month',
                                             'data-stripe' => 'exp_month'
@@ -182,7 +182,7 @@
                             </div>
                             <div class="col-xs-6">
                                 <div class="form-group">
-                                    {!! Form::label('card-expiry-year', 'Exipry Year') !!}
+                                    {!! Form::label('card-expiry-year', 'Expiry Year') !!}
                                     {!!  Form::selectRange('card-expiry-year',date('Y'),date('Y')+10,null, [
                                             'class' => 'form-control card-expiry-year',
                                             'data-stripe' => 'exp_year'
@@ -193,7 +193,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     {!! Form::label('card-expiry-year', 'CVC Number') !!}
-                                    <input required="required" name="card-cvc" placeholder="***" class="form-control card-cvc" data-stripe="cvc">
+                                    <input required="required" placeholder="***" class="form-control card-cvc" data-stripe="cvc">
                                 </div>
                             </div>
                         </div>
@@ -205,7 +205,7 @@
 
                 @if($event->pre_order_display_message)
                 <div class="well well-small">
-                    {{ nl2br(e($event->pre_order_display_message)) }}
+                    {!! nl2br(e($event->pre_order_display_message)) !!}
                 </div>
                 @endif
 
